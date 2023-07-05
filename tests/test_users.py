@@ -1,6 +1,6 @@
 import pytest
-
 from fastapi import status
+
 
 @pytest.mark.parametrize(
     ('username', 'email', 'password', 'status'),

@@ -1,8 +1,8 @@
-from typing import TypeVar, ClassVar, Type
+from typing import ClassVar, Type, TypeVar
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
 from fastapi import Depends
+from sqlalchemy import delete, select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services.database.session import get_session
 

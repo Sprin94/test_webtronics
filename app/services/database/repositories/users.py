@@ -1,11 +1,12 @@
 from fastapi import HTTPException, status
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select, update
+from sqlalchemy.exc import IntegrityError
 
 from app.services.database.models import user
 from app.services.database.repositories.base import BaseCrud
-from app.services.database.schemas.users import UserCreate, User
-from app.services.security.password_security import get_password_hash, verify_password
+from app.services.database.schemas.users import User, UserCreate
+from app.services.security.password_security import (get_password_hash,
+                                                     verify_password)
 
 
 class UserCrud(BaseCrud):

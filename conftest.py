@@ -1,29 +1,27 @@
-from datetime import timedelta
 import asyncio
-from typing import AsyncGenerator
-import string
 import random
+import string
+from datetime import timedelta
+from typing import AsyncGenerator
 
 import pytest
 from fastapi.testclient import TestClient
+from fastapi_cache import caches
+from fastapi_cache.backends.memory import CACHE_KEY, InMemoryCacheBackend
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
-from fastapi_cache import caches
-from fastapi_cache.backends.memory import CACHE_KEY, InMemoryCacheBackend
 
-
-from app.services.security.password_security import get_password_hash
-from app.services.security.jwt import create_access_token
-from app.services.database.session import get_session
-from app.services.database.models.base import Base
-from app.services.database.models.user import User
-from app.services.database.models.posts import Post
-from app.services.database.repositories.users import UserCrud
-from app.utils.cache import redis_cache
 from app.core.config import settings
 from app.main import app
-
+from app.services.database.models.base import Base
+from app.services.database.models.posts import Post
+from app.services.database.models.user import User
+from app.services.database.repositories.users import UserCrud
+from app.services.database.session import get_session
+from app.services.security.jwt import create_access_token
+from app.services.security.password_security import get_password_hash
+from app.utils.cache import redis_cache
 
 metadata = Base.metadata
 

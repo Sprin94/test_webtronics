@@ -1,6 +1,7 @@
 from enum import IntEnum
 
-from sqlalchemy import Integer, Column, String, ForeignKey, UniqueConstraint, Enum
+from sqlalchemy import (Column, Enum, ForeignKey, Integer, String,
+                        UniqueConstraint)
 from sqlalchemy.orm import relationship
 
 from app.services.database.models.base import Base

@@ -1,15 +1,13 @@
-from jose import jwt, JWTError
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
 
-from app.services.database.repositories.users import UserCrud
-from app.services.database.repositories.posts import PostCrud
-
-from app.services.security.jwt import ALGORITHM
 from app.core.config import settings
+from app.services.database.repositories.posts import PostCrud
+from app.services.database.repositories.users import UserCrud
 from app.services.database.schemas.tokens import TokenPayload
 from app.services.database.schemas.users import UserInDB
-
+from app.services.security.jwt import ALGORITHM
 
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl='token')
 

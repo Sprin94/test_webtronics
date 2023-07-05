@@ -1,13 +1,13 @@
 import asyncio
-
 from datetime import timedelta
-from fastapi import APIRouter, Form, HTTPException, status, Depends, Query
+
+from fastapi import APIRouter, Depends, Form, HTTPException, Query, status
 
 from app.core.config import settings
-from app.services.security.jwt import create_access_token
-from app.services.database.schemas.tokens import Token
-from app.services.database.schemas.users import UserCreate, User, UserInDB
 from app.services.database.repositories.users import UserCrud
+from app.services.database.schemas.tokens import Token
+from app.services.database.schemas.users import User, UserCreate, UserInDB
+from app.services.security.jwt import create_access_token
 from app.services.security.permissions import get_current_active_user
 from app.utils.check_email import check_email
 

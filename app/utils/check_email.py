@@ -3,8 +3,8 @@ import asyncio
 import httpx
 from fastapi import status
 
-from app.services.database.repositories.users import UserCrud
 from app.core.config import settings
+from app.services.database.repositories.users import UserCrud
 
 API_ENDPOINT = 'https://api.hunter.io/v2/email-verifier'
 

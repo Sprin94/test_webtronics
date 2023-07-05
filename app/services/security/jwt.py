@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 from typing import Dict, Union
+
 from jose import jwt
 
 from app.core.config import settings
-
 
 ALGORITHM = 'HS256'
 access_token_jwt_subject = 'access'

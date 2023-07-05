@@ -1,5 +1,4 @@
-from httpx import AsyncClient
-from httpx import Response
+from httpx import AsyncClient, Response
 
 from app.utils.check_email import check_email
 

@@ -1,12 +1,11 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 from fastapi_cache import caches
 from fastapi_cache.backends.redis import CACHE_KEY, RedisCacheBackend
 
-from app.core.config import settings
-from app.api.user import router as user_router
 from app.api.posts import router as posts_router
-
+from app.api.user import router as user_router
+from app.core.config import settings
 
 app = FastAPI()
 app.include_router(user_router)

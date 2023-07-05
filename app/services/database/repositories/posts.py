@@ -1,9 +1,10 @@
-from sqlalchemy import delete, update, func, select
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import joinedload
 
 from app.services.database.models import posts
-from app.services.database.schemas.posts import PostBase, PostInDB, PostUpdate, LikeInDB
 from app.services.database.repositories.base import BaseCrud
+from app.services.database.schemas.posts import (LikeInDB, PostBase, PostInDB,
+                                                 PostUpdate)
 
 
 class PostCrud(BaseCrud):

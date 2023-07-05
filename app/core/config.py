@@ -2,7 +2,7 @@ import os
 import secrets
 from typing import Any, Dict, Optional
 
-from pydantic import (BaseSettings, PostgresDsn, validator, RedisDsn)
+from pydantic import BaseSettings, PostgresDsn, RedisDsn, validator
 
 
 class Settings(BaseSettings):

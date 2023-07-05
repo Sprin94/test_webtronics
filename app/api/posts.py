@@ -1,15 +1,17 @@
 import json
 
-from fastapi import APIRouter, HTTPException, status, Depends, Response
-from sqlalchemy.exc import IntegrityError
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi_cache.backends.redis import RedisCacheBackend
+from sqlalchemy.exc import IntegrityError
 
-from app.services.database.schemas.posts import (
-    PostInDB, PostBase, PostCreate, PostUpdate, PostInDBLikes, LikeCreate, LikeInDB
-)
+from app.services.database.repositories.posts import LikeCrud, PostCrud
+from app.services.database.schemas.posts import (LikeCreate, LikeInDB,
+                                                 PostBase, PostCreate,
+                                                 PostInDB, PostInDBLikes,
+                                                 PostUpdate)
 from app.services.database.schemas.users import UserInDB
-from app.services.database.repositories.posts import PostCrud, LikeCrud
-from app.services.security.permissions import get_current_active_user, is_post_author
+from app.services.security.permissions import (get_current_active_user,
+                                               is_post_author)
 from app.utils.cache import redis_cache
 
 router = APIRouter()

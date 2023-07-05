@@ -1,5 +1,6 @@
-from sqlalchemy import Boolean, Integer, Column, String
+from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
+
 from app.services.database.models.base import Base
 
 
