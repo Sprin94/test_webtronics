@@ -30,7 +30,7 @@ async def get_current_user(
         )
     user = await crud.get_by_id(token_data.user_id)
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Bad token')
     return user
 
 

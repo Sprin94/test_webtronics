@@ -64,6 +64,17 @@ class Settings(BaseSettings):
             password=values.get('REDIS_PASSWORD')
         )
 
+    #  TESTS
+    TEST_POSTGRES_SERVER: Optional[str] = None
+    TEST_POSTGRES_USER: Optional[str] = None
+    TEST_POSTGRES_PASSWORD: Optional[str] = None
+    TEST_POSTGRES_DB: Optional[str] = None
+    TEST_POSTGRES_PORT: Optional[str] = None
+
+    TEST_REDIS_PASSWORD: Optional[str]
+    TEST_REDIS_PORT: Optional[str]
+    TEST_REDIS_HOST: Optional[str]
+
     class Config:
         case_sensitive = True
         env_file = '.env'

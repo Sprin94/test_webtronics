@@ -1,6 +1,6 @@
 import json
 
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Response
 from sqlalchemy.exc import IntegrityError
 from fastapi_cache.backends.redis import RedisCacheBackend
 
@@ -24,7 +24,7 @@ async def get_posts_list(posts_crud: PostCrud = Depends()):
     return posts
 
 
-@router.post('/posts', response_model=PostInDB)
+@router.post('/posts', response_model=PostInDB, status_code=status.HTTP_201_CREATED)
 async def create_post(
     data: PostCreate,
     posts_crud: PostCrud = Depends(),
@@ -103,7 +103,7 @@ async def add_like(
     return {'message': 'Successfully like'}
 
 
-@router.delete('/posts/{post_id}/likes')
+@router.delete('/posts/{post_id}/likes', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_like(
     post_id: int,
     posts_crud: PostCrud = Depends(),
@@ -121,7 +121,10 @@ async def delete_like(
     if is_deleted:
         await cache.delete(LIKE_CACHE_KEY.format(post_id=post_id))
         return {'message': 'Like deleted'}
-    return {'message': 'you havent liked yet'}
+    return Response(
+        {'message': 'you havent liked yet'},
+        status_code=status.HTTP_400_BAD_REQUEST
+    )
 
 
 @router.get('/posts/{post_id}/likes')
@@ -131,10 +134,10 @@ async def get_likes(
     like_crud: LikeCrud = Depends(),
     cache: RedisCacheBackend = Depends(redis_cache)
 ):
+    post = await posts_crud.get_by_id(post_id)
     key = LIKE_CACHE_KEY.format(post_id=post_id)
     in_cache = await cache.get(key)
     if not in_cache:
-        post = await posts_crud.get_by_id(post_id)
         if not post:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -143,6 +146,7 @@ async def get_likes(
         likes = await like_crud.get_posts_likes(post_id)
         likes = [LikeInDB.from_orm(like).dict() for like in likes]
         await cache.set(key, json.dumps(likes))
+        return likes
     else:
         in_cache = json.loads(in_cache)
-    return in_cache or likes
+        return in_cache

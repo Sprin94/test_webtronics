@@ -1,7 +1,7 @@
 import asyncio
 
 from datetime import timedelta
-from fastapi import APIRouter, Form, HTTPException, status, Depends
+from fastapi import APIRouter, Form, HTTPException, status, Depends, Query
 
 from app.core.config import settings
 from app.services.security.jwt import create_access_token
@@ -36,7 +36,7 @@ async def login_for_access_token(
     return {'access_token': access_token, 'token_type': 'bearer'}
 
 
-@router.post('/sign-up', response_model=User)
+@router.post('/sign-up', response_model=User, status_code=status.HTTP_201_CREATED)
 async def user_registration(
     user: UserCreate,
     crud: UserCrud = Depends()
