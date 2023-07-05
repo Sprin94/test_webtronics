@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "test-webtronics"
+version = "0.1.0"
+description = ""
+authors = ["Andrei Rostovtsev <105871945+Sprin94@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "test_webtronics"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.99.1"
+black = "^23.3.0"
+isort = "^5.12.0"
+alembic = "^1.11.1"
+uvicorn = "^0.22.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+pydantic = {version = "1.10", extras = ["dotenv", "email"]}
+asyncpg = "^0.27.0"
+python-multipart = "^0.0.6"
+fastapi-cache = "^0.1.0"
+httpx = "^0.24.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
