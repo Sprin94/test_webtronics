@@ -1,6 +1,8 @@
 from datetime import timedelta
 import asyncio
 from typing import AsyncGenerator
+import string
+import random
 
 import pytest
 from fastapi.testclient import TestClient
@@ -86,13 +88,14 @@ async def user():
         return user
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 async def not_active_user():
+    random_str = ''.join(random.choice(string.ascii_letters) for _ in range(10))
     async with async_session_maker() as session:
         hashed_password = get_password_hash('user')
         user = User(
-            email='not-active@email.com',
-            username='not-active',
+            email=f'{random_str}@email.com',
+            username=random_str,
             hashed_password=hashed_password,
             is_active=False,
         )
